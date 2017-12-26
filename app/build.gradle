@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+
+
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.aaburov.gofuratest"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    def retrofitVersion = '2.2.0'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    //Retrofit 2
+    compile 'com.squareup.retrofit2:retrofit:' + retrofitVersion
+    compile 'com.squareup.retrofit2:converter-gson:' + retrofitVersion
+    compile 'com.squareup.retrofit2:adapter-rxjava:' + retrofitVersion
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    //RxJava
+    compile 'io.reactivex:rxjava:1.2.3'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    //Dagger2
+    compile 'com.google.dagger:dagger:2.9'
+    apt "com.google.dagger:dagger-compiler:2.9"
+    //Clustering
+    compile 'com.google.maps.android:android-maps-utils:0.4+'
+    //Realm
+    compile 'io.realm:realm-android:0.87.4'
+
+    testCompile 'junit:junit:4.12'
+}
